@@ -13,9 +13,9 @@ def create_app():
     app.config['MAIL_PORT'] = 465
     app.config['MAIL_USE_TLS'] = False
     app.config['MAIL_USE_SSL'] = True
-    app.config['MAIL_USERNAME'] = 'kaniket7209@gmail.com'
+    app.config['MAIL_USERNAME'] = os.environ.get("email")
     app.config['MAIL_PASSWORD'] = os.environ.get("pass")
-    app.config['MAIL_DEFAULT_SENDER'] = "kaniket7209@gmail.com"
+    app.config['MAIL_DEFAULT_SENDER'] = os.environ.get("email")
     app.config['MAIL_MAX_EMAILS'] = None
 
     mail = Mail(app)
@@ -32,7 +32,7 @@ def create_app():
             subject = request.form['subject']
             msg = request.form['message']
 
-            message = Message(subject, sender="kaniket7209@gmail.com", recipients=[email])
+            message = Message(subject, sender=os.environ.get("email"), recipients=[email])
 
             message.body = msg # .html will make it in html format 
             with app.open_resource('hii.jpg') as hii:
